@@ -2,6 +2,12 @@
 return array(
     // This should be an array of module namespaces used in the application.
     'modules' => array(
+        
+        // 3rd part modules
+        'DoctrineModule',
+        'DoctrineORMModule',
+        
+        // My modules
         'Application',
     ),
 

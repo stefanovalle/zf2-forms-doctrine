@@ -1,0 +1,42 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM,
+    Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Application\Entity\Tag
+ *
+ * @ORM\Table(name="tag")
+ * @ORM\Entity(repositoryClass="Application\Entity\Repository\TagRepository")
+ */
+class Tag
+{
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column( type="integer", nullable=false )
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="tag_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var string $name
+     *
+     * @ORM\Column( type="string", length=100, nullable=false )
+     */
+    private $name;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Book", mappedBy="tags")
+     */
+    private $books;
+
+    
+    
+}

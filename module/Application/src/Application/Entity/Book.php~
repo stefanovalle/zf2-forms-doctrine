@@ -1,0 +1,81 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+
+/**
+ * Application\Entity\Book
+ *
+ * @ORM\Table(name="book")
+ * @ORM\Entity(repositoryClass="Application\Entity\Repository\BookRepository")
+ *
+ */
+class Book {
+
+	/**
+	 * @var integer $id
+	 *
+	 * @ORM\Column(type="integer", nullable=false)
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="SEQUENCE")
+	 * @ORM\SequenceGenerator(sequenceName="book_id_seq", allocationSize=1, initialValue=1)
+	 */
+    private $id;
+
+    /**
+     * @var string $title
+     *
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string $summary
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $abstract;
+
+    /**
+     * @var \DateTime $publicationdate
+     *
+     * @ORM\Column(type="date", nullable=false)
+     */
+    private $publicationdate;
+    
+    /**
+     * @var boolean $isonsale
+     *
+     * @ORM\Column(name="isonsale", type="boolean", nullable=false)
+     */
+    private $isonsale = true;
+    
+    /**
+     * @var Application\Entity\Author
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Author", inversedBy="books")
+     */
+    private $author;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Tag", inversedBy="books")
+     * @ORM\JoinTable(name="tag_book")
+     */
+    private $tags;
+    
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+       
+    
+    
+}
