@@ -36,7 +36,7 @@ class Book {
      *
      * @ORM\Column(type="text", nullable=true)
      */
-    private $abstract;
+    private $summary;
 
     /**
      * @var \DateTime $publicationdate
@@ -113,26 +113,26 @@ class Book {
     }
 
     /**
-     * Set abstract
+     * Set summary
      *
-     * @param string $abstract
+     * @param string $summary
      * @return Book
      */
-    public function setAbstract($abstract)
+    public function setSummary($summary)
     {
-        $this->abstract = $abstract;
+        $this->summary = $summary;
 
         return $this;
     }
 
     /**
-     * Get abstract
+     * Get summary
      *
      * @return string 
      */
-    public function getAbstract()
+    public function getSummary()
     {
-        return $this->abstract;
+        return $this->summary;
     }
 
     /**
@@ -235,5 +235,33 @@ class Book {
     public function getTags()
     {
         return $this->tags;
+    }
+    
+    /**
+     * Add tags
+     * Needed by Doctrine hydrator
+     *
+     * @param Collection $tags
+     */
+    public function addTags(Collection $tags)
+    {
+        foreach ($tags as $tag) {
+            $tag->addBook($this);
+            $this->tags->add($tag);
+        }
+    }
+
+    /**
+     * Remove tags
+     * Needed by Doctrine hydrator
+     *
+     * @param Collection $tags
+     */
+    public function removeTags(Collection $tags)
+    {
+        foreach ($tags as $tag) {
+            $tag->removeBook($this);
+            $this->tags->removeElement($tag);
+        }
     }
 }

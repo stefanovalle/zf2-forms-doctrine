@@ -36,4 +36,36 @@ class Module
             ),
         );
     }
+    
+    // Controller configuration
+    public function getControllerConfig() {
+        
+        return array(
+            'factories' => array(
+                
+                'Application\Controller\Index' => 'Application\Controller\IndexControllerFactory',
+                
+            ),
+        );
+        
+    } 
+    
+    // Service Manager Configuration
+    public function getServiceConfig() 
+    {
+    	return array(
+            'factories' => array(
+                
+                // Services
+                'Application\Service\BookService' => 'Application\Service\BookServiceFactory',
+                'Application\Service\AuthorService' => 'Application\Service\AuthorServiceFactory',
+                
+                // Form
+                'Application\Form\Book' => 'Application\Form\BookFactory',
+                
+            )
+        );
+        
+    }            
+                
 }
